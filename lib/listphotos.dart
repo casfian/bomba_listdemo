@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'photo.dart'; //guna sebagai alias http
 
-class ListPhotos extends StatelessWidget {
+class ListPhotos extends StatefulWidget {
   ListPhotos({Key? key}) : super(key: key);
 
-  List<dynamic> photos = []; //awalan data sifar
+  @override
+  _ListPhotosState createState() => _ListPhotosState();
+}
 
+class _ListPhotosState extends State<ListPhotos> {
+  List<dynamic> photos = [];
   var url = Uri.parse('https://jsonplaceholder.typicode.com/photos');
 
   Future<List<dynamic>> getPhotos() async {
@@ -22,7 +25,14 @@ class ListPhotos extends StatelessWidget {
           u['url'], u['thumbnailUrl']);
       photos.add(photo);
     }
+    print(photos);
     return photos;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPhotos();
   }
 
   @override
@@ -31,7 +41,7 @@ class ListPhotos extends StatelessWidget {
       appBar: AppBar(
         title: Text('List Photos'),
       ),
-      body: ListView.builder(itemBuilder: itemBuilder),
+      body: Text('apapa') //ListView.builder(itemBuilder: itemBuilder),
     );
   }
 }
