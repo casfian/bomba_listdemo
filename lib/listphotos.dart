@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http; //guna sebagai alias http
+import 'package:http/http.dart' as http;
+
+import 'photo.dart'; //guna sebagai alias http
 
 class ListPhotos extends StatelessWidget {
   ListPhotos({Key? key}) : super(key: key);
@@ -16,8 +18,10 @@ class ListPhotos extends StatelessWidget {
     //loop dan masukkan ke array
     for (var u in jsonData) {
       //sekali loop dia tambah data ke photo ke dalam photos array
+      Photo photo = Photo(u!['index'], u['albumid'], u['id'], u['title'],
+          u['url'], u['thumbnailUrl']);
+      photos.add(photo);
     }
-
     return photos;
   }
 
