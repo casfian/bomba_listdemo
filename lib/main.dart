@@ -1,4 +1,4 @@
-import 'package:bomba_listdemo/screen1.dart';
+import 'package:bomba_listdemo/listphotos.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Screen1(),
+        body: ListPhotos(),
       ),
     );
   }
