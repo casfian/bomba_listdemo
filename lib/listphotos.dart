@@ -25,6 +25,7 @@ class _ListPhotosState extends State<ListPhotos> {
           u['url'], u['thumbnailUrl']);
       photos.add(photo);
     }
+    photos = jsonData;
     print(photos);
     return photos;
   }
@@ -41,7 +42,26 @@ class _ListPhotosState extends State<ListPhotos> {
       appBar: AppBar(
         title: Text('List Photos'),
       ),
-      body: Text('apapa') //ListView.builder(itemBuilder: itemBuilder),
+      body: FutureBuilder(
+          future: getPhotos(), //sumber data
+          builder: (context, AsyncSnapshot snapshot) {
+            //check connection dulu
+            if (snapshot.connectionState == ConnectionState.done) {
+              //paparkan data
+              return ListView.builder(
+                  itemCount: snapshot.data == null ? 0 : snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Image.network(snapshot.data[index]['thumbnailUrl']),
+                      title: Text(snapshot.data[index]['title']),
+                      subtitle: Text(snapshot.data[index]['url']),
+                    );
+                  });
+            } else {
+              //tunjuk sesuatu supaya user tau data tengah loading
+              return Center(child: CircularProgressIndicator());
+            }
+          }),
     );
   }
 }
